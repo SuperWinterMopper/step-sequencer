@@ -1,0 +1,2 @@
+const audioCtx = new AudioContext();
+
