@@ -3,13 +3,12 @@
 import { useState } from "react"
 import MySlider from "./slider";
 
-export default function Page() {
-  const [attack, setAttack] = useState(.2);
-  
+export default function Page() {  
   return (
-    <div>
-      <p>{attack}</p>
-      <MySlider />
+    <div className="flex justify-center items-center h-screen">
+      <div className="flex items-center w-1/2 h-[50vh]">
+        <MySlider />
+      </div>
     </div>
   )
 }
