@@ -3,8 +3,9 @@
 import { Slider } from "@/components/ui/slider";
 import { useState } from "react"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils"
-import waveTable from "@/app/slider/wavetable"
+import waveTable from "@/app/wavetable"
 
 type SliderProps = React.ComponentProps<typeof Slider>
 
@@ -22,11 +23,21 @@ export default function MySlider({ className, ...props }: SliderProps) {
   const playSweep = (time: number) => {
     console.assert(time >= 0, "entered negative time into playSweep");
 
+    const sweepLength = 2, attackTime = .2, releaseTime = .5;
+
     const osc = new OscillatorNode(audioCtx,  {
       frequency: 196,
       type: "custom",
       periodicWave: wave
     });
+
+    const sweepEnv = new GainNode(audioCtx);
+    sweepEnv.gain.cancelScheduledValues(time);
+    sweepEnv.gain.setValueAtTime(0, time);
+    sweepEnv.gain.linearRampToValueAtTime(1, time + attackTime);
+    sweepEnv.gain.linearRampToValueAtTime(0, time + sweepLength - releaseTime);
+  
+
     osc.connect(audioCtx.destination);
     osc.start(time);
     osc.stop(time + 1);
@@ -72,6 +83,9 @@ export default function MySlider({ className, ...props }: SliderProps) {
           />  
         </CardContent>
       </Card>
+      <Button>
+        Play sound!
+      </Button>
     </div>
   );
 };

@@ -1,30 +1,14 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import { useState } from "react"
+import MySlider from "@/slider";
+
+export default function Page() {  
   return (
-    <div className="flex justify-center items-center bg-pink-300 h-screen">
-      <div>
-      <label htmlFor="attack">Attack</label>
-        <input
-          name="attack"
-          id="attack"
-          type="range"
-          min="0"
-          max="1"
-          value="0.2"
-          step="0.1" 
-        />
-        <label htmlFor="release">Release</label>
-        <input
-          name="release"
-          id="release"
-          type="range"
-          min="0"
-          max="1"
-          value="0.5"
-          step="0.1" 
-        />
+    <div className="flex justify-center items-center h-screen">
+      <div className="flex items-center w-4/5 h-[50vh]">
+        <MySlider />
       </div>
     </div>
-  );
+  )
 }
